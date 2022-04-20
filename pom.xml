@@ -161,6 +161,7 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
+                        <phase>process-sources</phase>
                     </execution>
                 </executions>
             </plugin>
