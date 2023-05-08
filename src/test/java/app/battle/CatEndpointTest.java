@@ -172,7 +172,7 @@ class CatEndpointTest {
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("size()", is(4));
+                .body("size()", is(5));
     }
 
 }
