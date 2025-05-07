@@ -4,6 +4,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "pet-battle-api.fullname" . }}
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"{{ include "pet-battle-api.fullname" . }}:{{ .Values.image_version }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"pet-battle-api\")].image"}]'
   labels:
     {{- include "pet-battle-api.labels" . | nindent 4 }}
 spec:
@@ -97,7 +99,7 @@ spec:
                   key: user
                   name: cats-mongodb-replicaset-admin
 {{- end }}
-          image: "{{ .Values.image_repository }}/{{ .Values.image_namespace }}/{{ .Values.image_name }}:{{ .Values.image_version }}"
+          image: ' '
           imagePullPolicy: Always
           name: {{ include "pet-battle-api.name" . }}
           livenessProbe:

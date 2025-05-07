@@ -2,8 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# Owner value
-
 # OpenShift objects
 route: true
 # if false use a kube deployment instead
@@ -16,7 +14,7 @@ image_name: pet-battle-api
 image_namespace: petbattle
 image_version: latest
 hpa:
-  enabled: false
+  enabled: true
   cpuTarget: 200m
   memTarget: 300Mi
 # use the image specified above as tag (else tag overridden in pipeline say)
@@ -29,11 +27,6 @@ nsff:
   apiPort: 8501
   limit: 0.6
 
-prometheusrules: {}
-
-# ServiceMonitor
-servicemonitor: false
-
 # do we deploy mongodb from a template (not helm chart)
 mongodbTemplate:
   enabled: true
@@ -42,8 +35,14 @@ mongodbTemplate:
     adminPassword: password
     user: user
     password: password
-  image: registry.access.redhat.com/rhscl/mongodb-36-rhel7:latest
+  image: docker.io/mongodb/mongodb-community-server:latest # registry.access.redhat.com/rhscl/mongodb-36-rhel7:latest
   storage: 1Gi
+#  init: 'exit 0'
+  init: 'sleep 5 && mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval="use cats"'
+  initJson:
+    user: user
+    pwd: password
+    roles: [ 'readWrite', 'dbAdmin' ]
 # mongodb subchart values (not used at present)
 mongodb-replicaset:
   securityContext:
@@ -80,3 +79,6 @@ istio:
   enabled: false
   mtls: true
   domain: apps.hivec.sandbox209.opentlc.com
+
+prometheusrules:
+  severity: warning
