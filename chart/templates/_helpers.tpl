@@ -45,9 +45,7 @@ Common labels
 {{- define "pet-battle-api.labels" -}}
 helm.sh/chart: {{ include "pet-battle-api.chart" . }}
 {{ include "pet-battle-api.selectorLabels" . }}
-{{- if .Values.image_version }}
-app.kubernetes.io/version: {{ .Values.image_version | quote }}
-{{- else }}
+{{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
