@@ -30,7 +30,7 @@ nsff:
 prometheusrules: {}
 
 # ServiceMonitor
-servicemonitor: true
+servicemonitor: false
 
 # do we deploy mongodb from a template (not helm chart)
 mongodbTemplate:
