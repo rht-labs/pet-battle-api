@@ -7,14 +7,14 @@ route: true
 # if false use a kube deployment instead
 deploymentConfig: false
 replicas:
-  min: 2
+  min: 1
   max: 6
 image_repository: quay.io
 image_name: pet-battle-api
 image_namespace: petbattle
 image_version: latest
 hpa:
-  enabled: true
+  enabled: false
   cpuTarget: 200m
   memTarget: 300Mi
 # use the image specified above as tag (else tag overridden in pipeline say)
@@ -26,6 +26,11 @@ nsff:
   apiHost: tensorflowserving-pb-nsff
   apiPort: 8501
   limit: 0.6
+
+prometheusrules: {}
+
+# ServiceMonitor
+servicemonitor: true
 
 # do we deploy mongodb from a template (not helm chart)
 mongodbTemplate:
