@@ -4,6 +4,8 @@
 
 # OpenShift objects
 route: true
+# Service selector labels
+selectorbglabel: false
 # if false use a kube deployment instead
 deploymentConfig: false
 replicas:

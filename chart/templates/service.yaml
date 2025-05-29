@@ -16,7 +16,13 @@ spec:
       targetPort: 8443
       name: tcp-8443
   selector:
+  {{- if not .Values.selectorbglabel }}
     {{- include "pet-battle-api.selectorLabels" . | nindent 4 }}
+  {{- else }}
+    app.kubernetes.io/instance: {{ .Values.selectorbglabel }}-pet-battle-api
+  {{- end }}
+  {{- if .Values.route }}
+  {{- end }}
   sessionAffinity: None
   type: ClusterIP
 status:
