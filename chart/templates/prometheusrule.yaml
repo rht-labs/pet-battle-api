@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: pb-api-alerts
+  name: pb-api-alerts-{{ include "pet-battle-api.fullname" . }}
   namespace: {{ .Release.Namespace }}
 spec:
   groups:
