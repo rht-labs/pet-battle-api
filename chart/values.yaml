@@ -4,17 +4,19 @@
 
 # OpenShift objects
 route: true
+# Service selector labels
+selectorbglabel: false
 # if false use a kube deployment instead
 deploymentConfig: false
 replicas:
-  min: 2
+  min: 1
   max: 6
 image_repository: quay.io
 image_name: pet-battle-api
 image_namespace: petbattle
 image_version: latest
 hpa:
-  enabled: true
+  enabled: false
   cpuTarget: 200m
   memTarget: 300Mi
 # use the image specified above as tag (else tag overridden in pipeline say)
@@ -32,6 +34,10 @@ nsff:
 #   a_weight: 80
 #   b_weight: 20
 #   svc_name: ab-pet-battle-api
+
+# ServiceMonitor
+servicemonitor: false
+
 
 # do we deploy mongodb from a template (not helm chart)
 mongodbTemplate:
