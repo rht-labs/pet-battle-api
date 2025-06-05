@@ -1,3 +1,4 @@
+{{- if .Values.servicemonitor }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -12,4 +13,5 @@ spec:
       scheme: http
   selector:
     matchLabels:
-      deploymentconfig: {{ include "pet-battle-api.fullname" . }}
+      {{- include "pet-battle-api.labels" . | nindent 6 }}
+{{- end }}
