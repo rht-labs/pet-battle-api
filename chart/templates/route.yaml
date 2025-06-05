@@ -12,14 +12,17 @@ spec:
   to:
     kind: Service
     name: {{ include "pet-battle-api.fullname" . }}
+  {{- if .Values.a_b_deploy }}
+    weight: {{ .Values.a_b_deploy.a_weight }}
+  alternateBackends:
+    - kind: Service
+      name: {{ .Values.a_b_deploy.svc_name }}
+      weight: {{ .Values.a_b_deploy.b_weight }}
+  {{- else }}
     weight: 100
+  {{- end }}
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
   wildcardPolicy: None
-status:
-  ingress:
-    - conditions:
-        - status: 'True'
-          type: Admitted
 {{ end }}
