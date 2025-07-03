@@ -99,7 +99,7 @@ spec:
                   key: user
                   name: cats-mongodb-replicaset-admin
 {{- end }}
-          image: ' '
+          image: '{{ .Values.image_repository }}/{{ .Values.image_namespace }}/{{ .Values.image_name }}:{{ .Values.image_version }}'
           imagePullPolicy: Always
           name: {{ include "pet-battle-api.name" . }}
           livenessProbe:
